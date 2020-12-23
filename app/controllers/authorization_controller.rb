@@ -9,7 +9,15 @@ class AuthorizationController < ApplicationController
         token = encode_token({ user_id: user.id })
         render json: { user: UserSerializer.new(user), jwt: token }, status: :accepted
       else
-        render json: { message: 'Invalid username or password' }, status: :unauthorized
+        errors = {}
+        
+        if !!!user
+          errors[:username] = ["User Not Found"]
+        elsif !user.authenticate(user_login_params[:password])
+          errors[:password] = ["Password doesn't match user"] 
+        end
+
+        render json: { message: 'Invalid username or password', errors: errors}, status: :unauthorized
       end
     end
   
