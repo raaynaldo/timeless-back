@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   get "/profile", to: 'users#show'
   
   post "/login", to: 'authorization#create'
+
+  get "/user_posts/:user_id", to: 'posts#show_user_posts'
 end

@@ -8,9 +8,8 @@ class User < ApplicationRecord
 
     has_secure_password
 
-    validates :password, presence: true
     validates :email, :username, uniqueness: true, presence: true
-    validates :first_name, :last_name, :birthday, presence: true
+    validates :password, :first_name, :last_name, :birthday, presence: true
 
     def full_name
         self.first_name + " " + self.last_name

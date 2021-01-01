@@ -4,10 +4,10 @@ one:
   body: MyString
   user_id: 1
   image: MyString
-  date: 2020-12-23 10:44:01
+  post_date: 2020-12-23 10:44:01
 
 two:
   body: MyString
   user_id: 1
   image: MyString
-  date: 2020-12-23 10:44:01
+  post_date: 2020-12-23 10:44:01
