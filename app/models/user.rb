@@ -14,4 +14,10 @@ class User < ApplicationRecord
     def full_name
         self.first_name + " " + self.last_name
     end 
+
+    def followee_ids
+        self.followees.map do |f|
+            f.id
+        end
+    end
 end
