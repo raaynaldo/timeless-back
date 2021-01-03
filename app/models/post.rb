@@ -8,7 +8,11 @@ class Post < ApplicationRecord
   validates :body, :post_date, :user_id, presence: true
   before_validation :set_post_date_today
 
-  protected
+  def self.search_post_by_user_id(id) #id can be array
+    Post.where(user_id: id)
+  end
+
+  private
 
   def set_post_date_today
     if post_date.nil?
