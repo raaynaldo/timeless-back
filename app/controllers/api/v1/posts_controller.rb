@@ -1,7 +1,17 @@
 class Api::V1::PostsController < ApplicationController
   def show_user_posts
     user_posts = Post.search_post_by_user_id(params[:user_id])
-    render json: user_posts, root: "posts", adapter: :json, each_serialzer: PostSerializer, status: :ok
+    user_posts_by_year = user_posts.inject({}) { |memo, current|
+      year = current.post_date.year.to_s
+      current = PostSerializer.new(current)
+      if memo[year].nil?
+        memo[year] ||= [current]
+      else
+        memo[year] << current
+      end
+      memo
+    }
+    render json: {posts: user_posts_by_year}, status: :ok
   end
 
   def show_followee_posts
