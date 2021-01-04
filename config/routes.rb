@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     
       post "/login", to: "authorization#create"
     
+      resource :posts, only: [:create]
       get "/user_posts/:user_id", to: "posts#show_user_posts"
       get "/folowee_posts/", to: "posts#show_followee_posts"
     end

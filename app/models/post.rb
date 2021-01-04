@@ -9,7 +9,7 @@ class Post < ApplicationRecord
   before_validation :set_post_date_today
 
   def self.search_post_by_user_id(id) #id can be array
-    Post.where(user_id: id)
+    Post.where(user_id: id).order(post_date: :desc)
   end
 
   private
