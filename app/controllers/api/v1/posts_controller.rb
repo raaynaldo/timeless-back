@@ -30,7 +30,6 @@ class Api::V1::PostsController < ApplicationController
     else
       render json: { message: "failed to create post", errors: new_post.errors }, status: :not_acceptable
     end
-    byebug
   end
 
   def destroy

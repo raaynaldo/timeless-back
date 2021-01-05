@@ -5,7 +5,7 @@ class Api::V1::UsersController < ApplicationController
         new_user = User.new(user_params)
         if new_user.save
             token = encode_token(user_id: new_user.id)
-            render json: { user: UserSerializer.new(new_user), jwt: token }, status: :created
+            render json: { user: UserSerializer.new(new_user), token: token }, status: :created
         else 
             render json: {message: 'failed to create user', errors: new_user.errors}, status: :not_acceptable
         end 

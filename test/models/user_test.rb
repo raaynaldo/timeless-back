@@ -13,7 +13,6 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "user should be valid" do
-    byebug  
     assert @user.valid?
   end
 
