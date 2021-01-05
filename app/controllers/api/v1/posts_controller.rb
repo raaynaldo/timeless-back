@@ -11,7 +11,6 @@ class Api::V1::PostsController < ApplicationController
       end
       memo
     }
-    byebug
     render json: { posts: user_posts_by_year }, status: :ok
   end
 
