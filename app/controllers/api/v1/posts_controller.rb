@@ -11,7 +11,8 @@ class Api::V1::PostsController < ApplicationController
       end
       memo
     }
-    render json: {posts: user_posts_by_year}, status: :ok
+    byebug
+    render json: { posts: user_posts_by_year }, status: :ok
   end
 
   def show_followee_posts
@@ -25,7 +26,11 @@ class Api::V1::PostsController < ApplicationController
     post = post_params
     post[:user_id] = current_user.id
     new_post = Post.new(post)
-    if new_post.save
+    tags = params[:tags].map { |tag|
+      Tag.find_or_create_by(name: tag.downcase)
+    }
+    if new_post.valid?
+      new_post.tags.concat(tags)
       render json: new_post, root: "post", adapter: :json, serializer: PostSerializer, status: :created
     else
       render json: { message: "failed to create post", errors: new_post.errors }, status: :not_acceptable
@@ -39,6 +44,6 @@ class Api::V1::PostsController < ApplicationController
 
   def post_params
     # params { user: {username: 'Chandler Bing', password: 'hi' } }
-    params.require(:post).permit(:body)
+    params.require(:post).permit(:body, :image)
   end
 end

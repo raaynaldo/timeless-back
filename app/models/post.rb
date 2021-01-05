@@ -13,7 +13,6 @@ class Post < ApplicationRecord
   end
 
   private
-
   def set_post_date_today
     if post_date.nil?
       self.post_date = DateTime.now()
