@@ -33,7 +33,7 @@ class Api::V1::UsersController < ApplicationController
       end
       memo
     }
-    render json: { user: UserSerializer.new(user), posts: user_posts_by_year }, status: :ok
+    render json: { user_data: UserSerializer.new(user), posts: user_posts_by_year }, status: :ok
   end
 
   def show_user_profile_by_username
@@ -50,9 +50,14 @@ class Api::V1::UsersController < ApplicationController
         memo
       }
       is_following = user.followers.exists?(current_user.id)
-      render json: { user: UserSerializer.new(user), posts: user_posts_by_year, following: is_following }, status: :ok
+      render json: { user_data: UserSerializer.new(user), posts: user_posts_by_year, following: is_following }, status: :ok
     else
       render json: { message: "user not found" }, status: :not_found
+    end
+  end
+
+  def follow_unfollow_user
+    if current_user.followee.exists?(current_user.id)
     end
   end
 
