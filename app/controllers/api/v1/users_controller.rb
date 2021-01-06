@@ -57,8 +57,16 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def follow_unfollow_user
-    if current_user.followee.exists?(current_user.id)
+    if current_user.followees.exists?(params[:id])
+      current_user.followed_users.find_by(followee_id: params[:id]).destroy()
+      is_following = false
+    else
+      user = User.find(params[:id])
+      current_user.followees << user
+      is_following = true
     end
+
+    render json: { is_following: is_following }, status: :ok
   end
 
   def show
