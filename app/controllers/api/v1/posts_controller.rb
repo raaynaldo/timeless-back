@@ -28,7 +28,7 @@ class Api::V1::PostsController < ApplicationController
     tags = params[:tags].map { |tag|
       Tag.find_or_create_by(name: tag.downcase)
     }
-    if new_post.valid?
+    if new_post.save
       new_post.tags.concat(tags)
       render json: new_post, root: "post", adapter: :json, serializer: PostSerializer, status: :created
     else
