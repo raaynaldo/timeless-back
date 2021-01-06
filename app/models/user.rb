@@ -17,4 +17,8 @@ class User < ApplicationRecord
   def followee_ids
     self.followees.map(&:id)
   end
+
+  def self.search_by_username(username)
+    User.where(username: username)
+  end
 end
