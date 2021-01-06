@@ -3,7 +3,7 @@ class Api::V1::UsersController < ApplicationController
 
   def index
     users = User.where("username like ?", "%" + params[:username] + "%")
-    render json: users
+    render json: users, status: :ok
   end
 
   def create
@@ -72,6 +72,16 @@ class Api::V1::UsersController < ApplicationController
   def show
     render json: { user: UserSerializer.new(current_user) }, status: :accepted
   end
+
+  def followers
+    user = User.find(params[:id])
+    render json: user.followers, status: :ok
+  end 
+
+  def following
+    user = User.find(params[:id])
+    render json: user.followees, status: :ok
+  end 
 
   private
 
