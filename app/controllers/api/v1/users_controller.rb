@@ -69,6 +69,21 @@ class Api::V1::UsersController < ApplicationController
     render json: { is_following: is_following }, status: :ok
   end
 
+  def upload_image
+    user = current_user
+    # The data is a file upload coming from <input type="file" />
+    if params[:file]
+      user.avatar.attach(params[:file])
+      image = url_for(user.avatar)
+    else
+      image = params[:url]
+    end
+    # # Generate a url for easy display on the front end
+    if user.update(image: image)
+      render json: { image: image }, status: :ok
+    end
+  end
+
   def show
     render json: { user: UserSerializer.new(current_user) }, status: :accepted
   end

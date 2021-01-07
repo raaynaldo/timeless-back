@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get "/current_user_profile/", to: "users#show_current_user_profile"
       get "/user_profile/:username", to: "users#show_user_profile_by_username"
       post "/follow_unfollow", to: "users#follow_unfollow_user"
+      post "/upload_image", to: "users#upload_image"
     end
   end
 
