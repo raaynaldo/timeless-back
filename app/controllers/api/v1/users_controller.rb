@@ -23,7 +23,7 @@ class Api::V1::UsersController < ApplicationController
 
   def show_current_user_profile
     user = User.find(current_user.id)
-    user_posts_by_year = user.posts.inject({}) { |memo, current|
+    user_posts_by_year = user.posts.order(post_date: :desc).inject({}) { |memo, current|
       year = current.post_date.year.to_s
       current = PostSerializer.new(current)
       if memo[year].nil?

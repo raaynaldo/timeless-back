@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
       resource :posts, only: [:create]
       get "/user_posts/:user_id", to: "posts#show_user_posts"
-      get "/folowee_posts/", to: "posts#show_followee_posts"
+      get "/followee_posts/", to: "posts#show_followee_posts"
 
       get "/current_user_profile/", to: "users#show_current_user_profile"
       get "/user_profile/:username", to: "users#show_user_profile_by_username"
