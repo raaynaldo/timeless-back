@@ -75,6 +75,14 @@ class Api::V1::UsersController < ApplicationController
     if params[:file]
       user.avatar.attach(params[:file])
       image = url_for(user.avatar)
+    elsif params[:currentPhoto]
+      blob = ActiveStorage::Blob.create_after_upload!(
+        io: StringIO.new((Base64.decode64(params[:currentPhoto].split(",")[1]))),
+        filename: "user.png",
+        content_type: "image/png",
+      )
+      user.avatar.attach(blob)
+      image = url_for(user.avatar)
     else
       image = params[:url]
     end
@@ -91,12 +99,12 @@ class Api::V1::UsersController < ApplicationController
   def followers
     user = User.find(params[:id])
     render json: user.followers, status: :ok
-  end 
+  end
 
   def following
     user = User.find(params[:id])
     render json: user.followees, status: :ok
-  end 
+  end
 
   private
 
