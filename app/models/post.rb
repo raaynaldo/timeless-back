@@ -1,6 +1,7 @@
 require "date"
 
 class Post < ApplicationRecord
+  has_one_attached :picture
   has_many :post_tags
   has_many :tags, through: :post_tags
   belongs_to :user
