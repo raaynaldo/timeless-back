@@ -5,5 +5,6 @@ class UpdatesChannel < ApplicationCable::Channel
 
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
+    puts "YOO"
   end
 end
