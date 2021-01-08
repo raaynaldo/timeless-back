@@ -30,11 +30,25 @@ class Api::V1::PostsController < ApplicationController
     }
     if new_post.save
       new_post.tags.concat(tags)
-      render json: new_post, root: "post", adapter: :json, serializer: PostSerializer, status: :created
+      serialized_data = ActiveModelSerializers::Adapter::Json.new(
+        PostSerializer.new(new_post)
+      ).serializable_hash
+      new_post.user.follower_ids.each do |uid| 
+        ActionCable.server.broadcast("update" + uid.to_s ,serialized_data)
+      end 
+      help_render(new_post)
+      # new_post.user.follower_ids.each do |uid| 
+      #   ActionCable.server.broadcast("update" + uid.to_s ,"hello")
+      # end 
+      # head :ok
     else
       render json: { message: "failed to create post", errors: new_post.errors }, status: :not_acceptable
     end
   end
+
+  def help_render(new_post)
+    render json: new_post, root: "post", adapter: :json, serializer: PostSerializer, status: :created
+  end 
 
   def destroy
   end

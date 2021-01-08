@@ -19,6 +19,10 @@ class User < ApplicationRecord
     self.followees.map(&:id)
   end
 
+  def follower_ids
+    self.followers.map(&:id)
+  end
+
   def posts
     super.order(post_date: :desc)
   end

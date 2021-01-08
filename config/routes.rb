@@ -18,6 +18,8 @@ Rails.application.routes.draw do
       get "/user_profile/:username", to: "users#show_user_profile_by_username"
       post "/follow_unfollow", to: "users#follow_unfollow_user"
       post "/upload_image", to: "users#upload_image"
+
+      mount ActionCable.server => '/cable'
     end
   end
 
