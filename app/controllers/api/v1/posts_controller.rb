@@ -21,26 +21,36 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def create
-    # body, image, user_id, tag
-    post = post_params
-    post[:user_id] = current_user.id
-    new_post = Post.new(post)
-    tags = params[:tags].map { |tag|
-      Tag.find_or_create_by(name: tag.downcase)
+    new_post = Post.new(body: params[:body], user_id: current_user.id)
+    # new_post = Post.last
+
+    #image
+    if params[:file]
+      new_post.picture.attach(params[:file])
+      # user.avatar.attach(io: params[:file], filename: "tes")
+      new_post.image = url_for(new_post.picture)
+    else
+      new_post.image = params[:url]
+    end
+
+    #tags
+    param_tags = params[:tags].split(",")
+    tags = param_tags.map { |tag|
+      Tag.find_or_create_by(name: tag.strip().downcase)
     }
-    if new_post.save
+
+    if new_post.save!
       new_post.tags.concat(tags)
       serialized_data = ActiveModelSerializers::Adapter::Json.new(
         PostSerializer.new(new_post)
       ).serializable_hash
-      new_post.user.follower_ids.each do |uid| 
-        ActionCable.server.broadcast("update" + uid.to_s ,serialized_data)
-      end 
+      new_post.user.follower_ids.each do |uid|
+        ActionCable.server.broadcast("update" + uid.to_s, serialized_data)
+      end
+      update_image = Post.last
+      update_image.update(image: url_for(update_image.picture))
+      
       help_render(new_post)
-      # new_post.user.follower_ids.each do |uid| 
-      #   ActionCable.server.broadcast("update" + uid.to_s ,"hello")
-      # end 
-      # head :ok
     else
       render json: { message: "failed to create post", errors: new_post.errors }, status: :not_acceptable
     end
@@ -48,7 +58,7 @@ class Api::V1::PostsController < ApplicationController
 
   def help_render(new_post)
     render json: new_post, root: "post", adapter: :json, serializer: PostSerializer, status: :created
-  end 
+  end
 
   def destroy
   end
@@ -60,3 +70,6 @@ class Api::V1::PostsController < ApplicationController
     params.require(:post).permit(:body, :image)
   end
 end
+
+# http://127.0.0.1:3001/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBZ3ciLCJleHAiOm51bGwsInB1ciI6ImJsb2JfaWQifX0=--5fba2c6d94868e33c5af818ef82db8c01b379d15/WhatsApp%20Image%202020-12-19%20at%209.18.34%20AM.jpeg
+# http://127.0.0.1:3001/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBLdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--966ad5ad46002b11c9eec0e1dce7217f868640c3/WhatsApp%20Image%202020-12-19%20at%209.18.34%20AM.jpeg
