@@ -47,10 +47,11 @@ class Api::V1::PostsController < ApplicationController
       new_post.user.follower_ids.each do |uid|
         ActionCable.server.broadcast("update" + uid.to_s, serialized_data)
       end
-      update_image = Post.last
+
+      update_image = Post.find(new_post.id)
       update_image.update(image: url_for(update_image.picture))
-      
-      help_render(new_post)
+
+      help_render(update_image)
     else
       render json: { message: "failed to create post", errors: new_post.errors }, status: :not_acceptable
     end
