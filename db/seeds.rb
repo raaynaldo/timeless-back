@@ -46,7 +46,7 @@ puts "Default Posts Done"
 
 User.all.each do |user1|
   User.all.each do |user2|
-    if [true, false].sample()
+    if [true, false].sample() && user1.id != user2.id
       UserFollower.create!(followee_id: user1.id, follower_id: user2.id)
     end
   end
@@ -56,7 +56,7 @@ puts "UserFollower Done"
 collection = [3482337, 3465768, 3482840, 3460702, 2423512, 1108338, 466382, 1494157, 1541586, 1547903,
               1515572, 2323045, 91907222, 81016826, 17839357, 8931165, 27268519, 41870369, 91036249, 451022]
 counter = 0
-(2002..2021).each do |year|
+(2002..2020).each do |year|
   tag = Tag.create!(name: year.to_s)
   tag2 = Tag.create!(name: "Birthday")
   bryce.posts.build([{ body: "Happy New Year", post_date: "#{year}-01-02", image: "https://source.unsplash.com/collection/#{collection[counter]}" }, { body: "Happy Birthday", post_date: "#{year}-09-29", image: "https://source.unsplash.com/collection/#{collection[counter]}" }])
