@@ -11,7 +11,7 @@ Post.destroy_all
 Tag.destroy_all
 PostTag.destroy_all
 
-bryce = User.create!(first_name: "Bryce", last_name: "Moore", username: "brycem", email: "bryce_moore@example.com", password: "123", birthday: "2001-01-01", image: "https://ca.slack-edge.com/T02MD9XTF-U01BD01ER1S-a7ebb138dff4-512")
+bryce = User.create!(first_name: "Bryce", last_name: "Moore", username: "brycem", email: "bryce_moore@example.com", password: "123", birthday: "2001-09-28", image: "https://ca.slack-edge.com/T02MD9XTF-U01BD01ER1S-a7ebb138dff4-512")
 ray = User.create!(first_name: "Raynaldo", last_name: "Sutisna", username: "raynaldos", email: "raynaldo_sutisna@example.com", password: "123", birthday: "1995-01-31", image: "https://ca.slack-edge.com/T02MD9XTF-U01BM15CCN8-a0132e1d0007-512")
 adam = User.create!(first_name: "Adam", last_name: "Johnson", username: "adamj", email: "adam_johnson@example.com", password: "123", birthday: "1993-01-01", image: "https://media-exp1.licdn.com/dms/image/C4E03AQEejOwJNedRGQ/profile-displayphoto-shrink_800_800/0/1579183758618?e=1615420800&v=beta&t=1lB76X3P2sU30phcwmbvRt-Z-rA55l6LVs-G4tZGedA")
 matteo = User.create!(first_name: "Matteo", last_name: "Ricci", username: "matteor", email: "matteo_ricci@example.com", password: "123", birthday: "1996-01-01", image: "https://ca.slack-edge.com/T02MD9XTF-USAM1A3MH-3708872f5317-512")
@@ -58,12 +58,17 @@ collection = [3482337, 3465768, 3482840, 3460702, 2423512, 1108338, 466382, 1494
 counter = 0
 (2002..2021).each do |year|
   tag = Tag.create!(name: year.to_s)
-  bryce.posts.build({ body: "Happy New Year", post_date: "#{year}-01-02", image: "https://source.unsplash.com/collection/#{collection[counter]}" })
+  tag2 = Tag.create!(name: "Birthday")
+  bryce.posts.build([{ body: "Happy New Year", post_date: "#{year}-01-02", image: "https://source.unsplash.com/collection/#{collection[counter]}" }, { body: "Happy Birthday", post_date: "#{year}-09-29", image: "https://source.unsplash.com/collection/#{collection[counter]}" }])
   bryce.save!
+  bryce.posts.second.tags << tag2
   bryce.posts.second.tags << tag
-  ray.posts.build({ body: "Happy New Year", post_date: "#{year}-01-02", image: "https://source.unsplash.com/collection/#{collection[counter]}" })
+  bryce.posts.third.tags << tag
+  ray.posts.build([{ body: "Happy New Year", post_date: "#{year}-01-31", image: "https://source.unsplash.com/collection/#{collection[counter]}" }, { body: "Happy Birthday", post_date: "#{year}-09-01", image: "https://source.unsplash.com/collection/#{collection[counter]}" }])
   ray.save!
+  ray.posts.second.tags << tag2
   ray.posts.second.tags << tag
+  ray.posts.third.tags << tag
   counter += 1
 end
 puts "Ray and Bryce Posts Done"
