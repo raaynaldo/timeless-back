@@ -21,6 +21,14 @@ alyssa = User.create!(first_name: "Alyssa", last_name: "Easterly", username: "al
 ben = User.create!(first_name: "Ben", last_name: "Hessel", username: "benh", email: "ben_hessel@example.com", password: "123", birthday: "1993-01-01", image: "https://ca.slack-edge.com/T02MD9XTF-U01B6HAMJKV-gd757514c436-512")
 mauro = User.create!(first_name: "Mauro", last_name: "Dorigo", username: "maurod", email: "mauro_dorigo@example.com", password: "123", birthday: "1990-01-01", image: "https://ca.slack-edge.com/T02MD9XTF-U019HQNV6SJ-eec29624a2be-512")
 paul = User.create!(first_name: "Paul", last_name: "Nicholsen", username: "pauln", email: "paul_nicholsen@example.com", password: "123", birthday: "1987-01-01", image: "https://ca.slack-edge.com/T02MD9XTF-U9ZRW52TY-5f1673160915-512")
+anne = User.create!(first_name: "Anne", last_name: "Nardolilli", username: "annen", email: "anne_nardolilli@example.com", password: "123", birthday: "1990-01-01", image: "https://ca.slack-edge.com/T02MD9XTF-U01C283ASJY-8bd041b04bfb-512")
+erick = User.create!(first_name: "Erick", last_name: "Villeda", username: "erickv", email: "erick_villeda@example.com", password: "123", birthday: "1990-01-01", image: "https://ca.slack-edge.com/T02MD9XTF-U018UU1LQTF-3f7f3cbd41cf-512")
+jacob = User.create!(first_name: "Jacob", last_name: "Kagon", username: "jacobk", email: "anne_kagon@example.com", password: "123", birthday: "1990-01-01", image: "https://ca.slack-edge.com/T02MD9XTF-U01ADTX2M71-e740cec53d22-512")
+justin = User.create!(first_name: "Justin", last_name: "Clifford", username: "justinc", email: "justin_clifford@example.com", password: "123", birthday: "1990-01-01", image: "https://ca.slack-edge.com/T02MD9XTF-U01B6HAAWE7-64ced1beb6c4-512")
+james = User.create!(first_name: "James", last_name: "Bond", username: "jamesb", email: "james_bond@example.com", password: "123", birthday: "1990-01-01", image: "https://ca.slack-edge.com/T02MD9XTF-U018KT74KCZ-a914cdd23556-512")
+kellie = User.create!(first_name: "Kellie", last_name: "Hamilton", username: "kellieh", email: "kellie_h@example.com", password: "123", birthday: "1990-01-01", image: "https://ca.slack-edge.com/T02MD9XTF-U018X446SD6-895e06669ce4-512")
+njeri = User.create!(first_name: "Njeri", last_name: "Kamau", username: "njerik", email: "njeri_kamau@example.com", password: "123", birthday: "1990-01-01", image: "https://ca.slack-edge.com/T02MD9XTF-U015PSUDVFY-5e3cfdffb261-512")
+
 puts "User Done"
 
 def default_posts(birthday)
