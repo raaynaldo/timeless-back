@@ -2,7 +2,7 @@ class Api::V1::UsersController < ApplicationController
   skip_before_action :authorized, only: [:create]
 
   def index
-    users = User.where("username like ?", "%" + params[:username] + "%")
+    users = User.where("username like ?", "%" + params[:username] + "%").order(:username)
     render json: users, status: :ok
   end
 
