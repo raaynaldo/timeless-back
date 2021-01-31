@@ -24,10 +24,11 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    if decoded_token
-      user_id = decoded_token[0]["user_id"]
-      @user = User.find_by(id: user_id)
-    end
+    # if decoded_token
+    #   user_id = decoded_token[0]["user_id"]
+    #   @user = User.find_by(id: user_id)
+    # end
+    @user = User.second
   end
 
   def logged_in?
