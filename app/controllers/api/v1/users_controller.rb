@@ -7,6 +7,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
+    puts "masuk woy"
     new_user = User.new(user_params)
     if new_user.save
       new_user.posts.build([{ body: "Born Today",
