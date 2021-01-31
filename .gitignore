@@ -27,4 +27,4 @@
 /config/master.key
 
 # Ignore Database yml
-/config/database.yml
+# /config/database.yml
