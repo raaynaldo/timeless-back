@@ -28,7 +28,7 @@ class ApplicationController < ActionController::API
     #   user_id = decoded_token[0]["user_id"]
     #   @user = User.find_by(id: user_id)
     # end
-      @user = User.find_by(id: user_id)
+    @user = User.first
   end
 
   def logged_in?
